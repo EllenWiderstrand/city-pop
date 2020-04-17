@@ -5,6 +5,7 @@ import StartPage from './StartPage'
 import SearchCity from './SearchCity'
 import SearchCountry from './SearchCountry'
 import PopulationPage from './PopulationPage'
+import CitiesPage from './CitiesPage'
 import {
   BrowserRouter as Router,
   Switch,
@@ -43,6 +44,9 @@ class App extends React.Component {
             </Route>
             <Route exact path="/population">
               <PopulationPage city={this.state.city}/>
+            </Route>
+            <Route exact path="/cities">
+              <CitiesPage/>
             </Route>
           </Switch>
         </Router>
