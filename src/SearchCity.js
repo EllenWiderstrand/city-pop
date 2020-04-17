@@ -3,9 +3,12 @@ import './App.css';
 import { Redirect } from "react-router-dom";
 
 class SearchCity extends React.Component {
-    // Sets the initial state
-    state = {
-        redirect: false
+    constructor(props){
+        super(props);
+        this.handleClick = this.handleClick.bind(this);
+        this.state = {
+            redirect: false
+        }
     }
     // Updates the state
     setRedirect = () => {
@@ -19,6 +22,12 @@ class SearchCity extends React.Component {
             return <Redirect to='/population' />
         }
     }
+
+// Sends the value of the input "city" to parent and calls setRedirect
+handleClick(e){
+    this.props.onSearch(document.getElementById("city").value)
+    this.setRedirect()
+}
     render(){
         return (
             <div>
@@ -30,7 +39,7 @@ class SearchCity extends React.Component {
                     <input type="text" id="city" placeholder="Enter a city"/>
                 </div>
                 <div className="center">
-                    <button onClick={this.setRedirect} className="button-search"></button>
+                    <button onClick={this.handleClick} className="button-search"></button>
                 </div>
             </div>
         );

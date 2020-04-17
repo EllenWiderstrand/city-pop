@@ -2,11 +2,12 @@ import React from 'react';
 import './App.css';
 
 class PopulationPage extends React.Component {
+    
     render(){
         return (
             <div>
                 <h2>
-                    CITY
+                    {this.props.city}
                 </h2>
                 <div className="informationBox">
                     <p>

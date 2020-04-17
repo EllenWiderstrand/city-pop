@@ -12,7 +12,18 @@ import {
 } from "react-router-dom";
 
 class App extends React.Component {
-  
+  constructor(props){
+    super(props)
+    this.state = {
+      city: ""
+    }
+    this.search = this.search.bind(this)
+  }
+
+  search(city){
+    this.setState({city})
+  }
+
   render(){
     return (
       <div>
@@ -25,13 +36,13 @@ class App extends React.Component {
               <StartPage />
             </Route>
             <Route exact path="/search-city">
-              <SearchCity />
+              <SearchCity onSearch={this.search}/>
             </Route>
             <Route exact path="/search-country">
               <SearchCountry />
             </Route>
             <Route exact path="/population">
-              <PopulationPage />
+              <PopulationPage city={this.state.city}/>
             </Route>
           </Switch>
         </Router>
