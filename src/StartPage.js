@@ -8,7 +8,7 @@ class StartPage extends React.Component {
         redirect: false,
         city: false
     }
-    // Updated the states when it is going to redirect to 'search-city'
+    // Updates the states when it is going to redirect to 'search-city'
     setCityRedirect = () => {
         this.setState({
             redirect: true,

@@ -4,6 +4,7 @@ import Header from './Header'
 import StartPage from './StartPage'
 import SearchCity from './SearchCity'
 import SearchCountry from './SearchCountry'
+import PopulationPage from './PopulationPage'
 import {
   BrowserRouter as Router,
   Switch,
@@ -11,6 +12,7 @@ import {
 } from "react-router-dom";
 
 class App extends React.Component {
+  
   render(){
     return (
       <div>
@@ -27,6 +29,9 @@ class App extends React.Component {
             </Route>
             <Route exact path="/search-country">
               <SearchCountry />
+            </Route>
+            <Route exact path="/population">
+              <PopulationPage />
             </Route>
           </Switch>
         </Router>
