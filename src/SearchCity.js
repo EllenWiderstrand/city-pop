@@ -25,7 +25,7 @@ class SearchCity extends React.Component {
 
 // Sends the value of the input "city" to parent and calls setRedirect
 handleClick(e){
-    this.props.onSearch(document.getElementById("city").value)
+    this.props.onSearchCity(document.getElementById("city").value)
     this.setRedirect()
 }
     render(){

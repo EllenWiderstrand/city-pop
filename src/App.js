@@ -16,12 +16,18 @@ class App extends React.Component {
   constructor(props){
     super(props)
     this.state = {
-      city: ""
+      city: "",
+      country: ""
     }
-    this.search = this.search.bind(this)
+    this.searchCity = this.searchCity.bind(this)
+    this.searchCountry = this.searchCountry.bind(this)
   }
 
-  search(city){
+  searchCountry(country){
+    this.setState({country})
+  }
+
+  searchCity(city){
     this.setState({city})
   }
 
@@ -37,16 +43,16 @@ class App extends React.Component {
               <StartPage />
             </Route>
             <Route exact path="/search-city">
-              <SearchCity onSearch={this.search}/>
+              <SearchCity onSearchCity={this.searchCity}/>
             </Route>
             <Route exact path="/search-country">
-              <SearchCountry />
+              <SearchCountry onSearchCountry={this.searchCountry}/>
             </Route>
             <Route exact path="/population">
               <PopulationPage city={this.state.city}/>
             </Route>
             <Route exact path="/cities">
-              <CitiesPage/>
+              <CitiesPage country={this.state.country}/>
             </Route>
           </Switch>
         </Router>
