@@ -15,11 +15,20 @@ class StartPage extends React.Component {
             city:true
         })
     }
+    // Updated the states when it is going to redirect to 'search-city'
+    setCountryRedirect = () => {
+        this.setState({
+            redirect: true,
+            city:false
+        })
+    }
     // Redirects to either 'search-city' or 'search-country'
     renderRedirect = () => {
         if (this.state.redirect) {
             if (this.state.city){
                 return <Redirect to='/search-city' />
+            }else{
+                return <Redirect to='/search-country' />
             }
         }
     }
@@ -31,7 +40,7 @@ class StartPage extends React.Component {
                 <button onClick={this.setCityRedirect} className="button-category">
                     SEARCH BY CITY
                 </button>
-                <button className="button-category">
+                <button onClick={this.setCountryRedirect} className="button-category">
                     SEARCH BY COUNTRY
                 </button>
             </div>

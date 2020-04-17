@@ -2,7 +2,8 @@ import React from 'react';
 import './App.css';
 import Header from './Header'
 import StartPage from './StartPage'
-import Search from './SearchCity'
+import SearchCity from './SearchCity'
+import SearchCountry from './SearchCountry'
 import {
   BrowserRouter as Router,
   Switch,
@@ -22,7 +23,10 @@ class App extends React.Component {
               <StartPage />
             </Route>
             <Route exact path="/search-city">
-              <Search />
+              <SearchCity />
+            </Route>
+            <Route exact path="/search-country">
+              <SearchCountry />
             </Route>
           </Switch>
         </Router>

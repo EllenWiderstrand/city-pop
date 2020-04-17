@@ -1,15 +1,15 @@
 import React from 'react';
 import './App.css';
 
-class SearchCity extends React.Component {
+class SearchCountry extends React.Component {
     render(){
         return (
             <div>
                 <h2>
-                    SEARCH BY CITY
+                    SEARCH BY COUNTRY
                 </h2>
                 <div className="center">
-                    <input type="text" name="name" placeholder="Enter a city"/>
+                    <input type="text" name="name" placeholder="Enter a country"/>
                 </div>
                 <div className="center">
                     <button className="button-search"></button>
@@ -19,4 +19,4 @@ class SearchCity extends React.Component {
     }
 }
 
-export default SearchCity;
+export default SearchCountry;
