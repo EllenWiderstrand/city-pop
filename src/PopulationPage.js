@@ -14,7 +14,7 @@ class PopulationPage extends React.Component {
                         POPULATION
                     </p>
                     <h3 className="populationNbr">
-                        1 234 567
+                        {this.props.pop}
                     </h3>
                 </div>
             </div>

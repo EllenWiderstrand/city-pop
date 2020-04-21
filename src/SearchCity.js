@@ -7,7 +7,8 @@ class SearchCity extends React.Component {
         super(props);
         this.handleClick = this.handleClick.bind(this);
         this.state = {
-            redirect: false
+            redirect: false,
+            population: 0
         }
     }
     // Updates the state
@@ -23,11 +24,21 @@ class SearchCity extends React.Component {
         }
     }
 
-// Sends the value of the input "city" to parent and calls setRedirect
-handleClick(e){
-    this.props.onSearchCity(document.getElementById("city").value)
-    this.setRedirect()
-}
+    // Sends the value of the input "city" to parent and calls setRedirect
+    handleClick(e){
+        this.fetchCityData()
+        this.setRedirect()
+    }
+
+    // Fetches data from geonames.org based on the city entered by the user
+    fetchCityData(){
+        fetch('http://api.geonames.org/searchJSON?q=' + document.getElementById("city").value + '&maxRows=1&isNameRequired=true&username=weknowit')
+        .then(response => response.json())
+        .then(data => 
+            {this.props.onSearchCity(data['geonames'][0]['name'], String(data['geonames'][0]['population']))}
+        )
+    }
+
     render(){
         return (
             <div>
