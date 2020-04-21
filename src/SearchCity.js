@@ -27,15 +27,20 @@ class SearchCity extends React.Component {
     // Sends the value of the input "city" to parent and calls setRedirect
     handleClick(e){
         this.fetchCityData()
-        this.setRedirect()
     }
 
     // Fetches data from geonames.org based on the city entered by the user
     fetchCityData(){
-        fetch('http://api.geonames.org/searchJSON?q=' + document.getElementById("city").value + '&maxRows=1&isNameRequired=true&username=weknowit')
+        fetch('http://api.geonames.org/searchJSON?name_equals=' + document.getElementById("city").value + 
+            '&featureClass=P&maxRows=1&username=weknowit')
         .then(response => response.json())
         .then(data => 
-            {this.props.onSearchCity(data['geonames'][0]['name'], String(data['geonames'][0]['population']))}
+            {if (data['totalResultsCount']===0){
+                alert("That is not an existing city")
+            }else{
+                this.props.onSearchCity(data['geonames'][0]['name'], String(data['geonames'][0]['population']))
+                this.setRedirect()
+            }}
         )
     }
 
