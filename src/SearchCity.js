@@ -1,6 +1,7 @@
 import React from 'react';
 import './App.css';
 import { Redirect } from "react-router-dom";
+import SyncLoader from "react-spinners/SyncLoader";
 
 class SearchCity extends React.Component {
     constructor(props){
@@ -8,7 +9,7 @@ class SearchCity extends React.Component {
         this.handleClick = this.handleClick.bind(this);
         this.state = {
             redirect: false,
-            population: 0
+            loading: false
         }
     }
     // Updates the state
@@ -26,6 +27,9 @@ class SearchCity extends React.Component {
 
     // Sends the value of the input "city" to parent and calls setRedirect
     handleClick(e){
+        this.setState({
+            loading: true
+        })
         this.fetchCityData()
     }
 
@@ -40,7 +44,10 @@ class SearchCity extends React.Component {
             }else{
                 this.props.onSearchCity(data['geonames'][0]['name'], String(data['geonames'][0]['population']))
                 this.setRedirect()
-            }}
+            }
+            this.setState({
+                loading: false
+            })}
         )
     }
 
@@ -55,7 +62,10 @@ class SearchCity extends React.Component {
                     <input type="text" id="city" placeholder="Enter a city"/>
                 </div>
                 <div className="center">
-                    <button onClick={this.handleClick} className="button-search"></button>
+                    {!this.state.loading && <button onClick={this.handleClick} className="button-search"></button>}
+                    <div className="loader">
+                        {this.state.loading && <SyncLoader />}
+                    </div>
                 </div>
             </div>
         );

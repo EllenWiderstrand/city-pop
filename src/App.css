@@ -87,6 +87,10 @@ input{
   text-transform: uppercase;
 }
 
+.loader{
+  margin-top: 40px;
+}
+
 .center{
   margin: auto;
   text-align: center;
