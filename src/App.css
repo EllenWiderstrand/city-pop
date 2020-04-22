@@ -39,12 +39,17 @@ p{
   background-size: 35px 35px;
   background-repeat: no-repeat;
   background-position: center;
+  background-color: white;
   border-radius: 50%;
   border-style: solid;
   border-color: black;
   width: 60px;
   height: 60px;
   margin-top: 20px;
+}
+
+.button-search:hover{
+  filter: invert(100%);
 }
 
 input{
