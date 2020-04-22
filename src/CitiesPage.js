@@ -11,17 +11,17 @@ class CitiesPage extends React.Component {
                 </h2>
                 <div className="cityBox">
                     <h3 className="cityName">
-                        Paris
+                        {this.props.threeCities[0]}
                     </h3>
                 </div>
                 <div className="cityBox">
                     <h3 className="cityName">
-                        Göteborg
+                        {this.props.threeCities[1]}
                     </h3>
                 </div>
                 <div className="cityBox">
                     <h3 className="cityName">
-                        Hamburg
+                        {this.props.threeCities[2]}
                     </h3>
                 </div>
             </div>

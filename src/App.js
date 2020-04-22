@@ -18,14 +18,15 @@ class App extends React.Component {
     this.state = {
       city: "",
       country: "",
-      pop: ""
+      pop: "",
+      threeCities: []
     }
     this.searchCity = this.searchCity.bind(this)
     this.searchCountry = this.searchCountry.bind(this)
   }
 
-  searchCountry(country){
-    this.setState({country})
+  searchCountry(country, threeCities){
+    this.setState({country, threeCities})
   }
 
   searchCity(city, pop){
@@ -53,7 +54,7 @@ class App extends React.Component {
               <PopulationPage city={this.state.city} pop={this.state.pop}/>
             </Route>
             <Route exact path="/cities">
-              <CitiesPage country={this.state.country}/>
+              <CitiesPage country={this.state.country} threeCities={this.state.threeCities}/>
             </Route>
           </Switch>
         </Router>

@@ -25,7 +25,7 @@ class SearchCountry extends React.Component {
         }
     }
 
-    // Sends the value of the input "city" to parent and calls setRedirect
+    // Sends the value of the input "country" to parent and calls setRedirect
     handleClick(e){
         if(document.getElementById("country").value === ""){
             alert("Please enter a country")
@@ -35,21 +35,35 @@ class SearchCountry extends React.Component {
             })
             this.fetchCountryData()
         }
-        //this.props.onSearchCountry(document.getElementById("country").value)
     }
 
     // Fetches data from geonames.org based on the country entered by the user
     fetchCountryData(){
         fetch('http://api.geonames.org/searchJSON?name_equals=' + document.getElementById("country").value + 
-            '&fcode=PCLI&orderby=population&maxRows=1&username=weknowit')
+            '&featureCode=PCLI&orderby=population&maxRows=1&username=weknowit')
         .then(response => response.json())
         .then(data => 
             {if(data['status']){
                 alert("Error: "+ data['status']['message'])
             }else if (data['totalResultsCount']===0){
-                alert("That is not an existing country")
+                alert("That is not an existing country, please enter a country")
             }else{
-                this.props.onSearchCountry(data['geonames'][0]['name'])
+                this.fetchCountryCities(data['geonames'][0]['name'])
+            }}
+        )
+    }
+
+    // Fetches data from geonames.org based on the country and responds with the three biggest cities 
+    // countryName is the name of the country entered by the user
+    fetchCountryCities(countryName){
+        fetch('http://api.geonames.org/searchJSON?q=' + countryName + 
+            '&featureCode=PPLA&featureCode=PPLC&orderby=population&maxRows=3&username=weknowit')
+        .then(response => response.json())
+        .then(data => 
+            {if(data['status']){
+                alert("Error: "+ data['status']['message'])
+            }else{
+                this.props.onSearchCountry(countryName, [data['geonames'][0]['name'],data['geonames'][1]['name'],data['geonames'][2]['name']])
                 this.setRedirect()
             }
             this.setState({
