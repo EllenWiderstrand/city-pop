@@ -5,6 +5,11 @@
   color: black;
 }
 
+.header:hover{
+  cursor: pointer;
+  color: rgb(102, 101, 101);
+}
+
 h2{
   text-align: center;
   font-size: 30px;
@@ -34,6 +39,11 @@ p{
   border-color: black;
 }
 
+.button-category:hover{
+  background-color: rgba(241, 241, 241, 0.541);
+  cursor: pointer;
+}
+
 .button-search{
   background: url(./images/search.png);
   background-size: 35px 35px;
@@ -50,6 +60,7 @@ p{
 
 .button-search:hover{
   filter: invert(100%);
+  cursor: pointer;
 }
 
 input{

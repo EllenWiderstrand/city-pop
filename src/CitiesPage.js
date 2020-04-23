@@ -7,8 +7,7 @@ class CitiesPage extends React.Component {
         super(props);
         this.handleClick = this.handleClick.bind(this);
         this.state = {
-            redirect: false,
-            loading: false
+            redirect: false
         }
     }
     // Updates the redirect in the state

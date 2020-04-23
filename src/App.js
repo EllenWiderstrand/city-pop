@@ -39,9 +39,9 @@ class App extends React.Component {
   render(){
     return (
       <div>
-        {/* The header CityPop is always portrayed */}
-        <Header/>
         <Router>
+          {/* The header CityPop is always portrayed */}
+          <Header/>
           {/* Renders the class whose path matches the current URL */}
           <Switch>
             <Route exact path="/">
