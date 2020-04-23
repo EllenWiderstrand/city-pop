@@ -6,9 +6,11 @@ class PopulationPage extends React.Component {
     render(){
         return (
             <div>
+                {/* Name of the city */}
                 <h2>
                     {this.props.city}
                 </h2>
+                {/* Box with the population of the city */}
                 <div className="informationBox">
                     <p>
                         POPULATION

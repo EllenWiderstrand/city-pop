@@ -12,20 +12,20 @@ class SearchCountry extends React.Component {
             loading: false
         }
     }
-    // Updates the state
+    // Updates the redirect state
     setRedirect = () => {
         this.setState({
             redirect: true
         })
     }
-    // Redirects to 'population' to show result
+    // Redirects to 'cities' to show result of country search 
     renderRedirect = () => {
         if (this.state.redirect) {
             return <Redirect to='/cities' />
         }
     }
 
-    // Sends the value of the input "country" to parent and calls setRedirect
+    // Checks that the input field is not empty and calls fetchCountyData if it isn't
     handleClick(e){
         if(document.getElementById("country").value === ""){
             alert("Please enter a country")
@@ -43,11 +43,16 @@ class SearchCountry extends React.Component {
             '&featureCode=PCLI&orderby=population&maxRows=1&username=weknowit')
         .then(response => response.json())
         .then(data => 
+            // Alerts an error message if that is recieved from the API-call
             {if(data['status']){
                 alert("Error: "+ data['status']['message'])
-            }else if (data['totalResultsCount']===0){
+            }
+            // Alerts if no country is recieved from the API-call
+            else if (data['totalResultsCount']===0){
                 alert("That is not an existing country, please enter a country")
-            }else{
+            }
+            // Calls fetchCountryCities with the name of the city otherwise
+            else{
                 this.fetchCountryCities(data['geonames'][0]['name'])
             }}
         )
@@ -60,14 +65,18 @@ class SearchCountry extends React.Component {
             '&featureCode=PPLA&featureCode=PPLC&orderby=population&maxRows=3&username=weknowit')
         .then(response => response.json())
         .then(data => 
+            // Alerts with error message if one is recieved from the API-call
             {if(data['status']){
                 alert("Error: "+ data['status']['message'])
-            }else{
+            }
+            // Sends the country name as well as lists with names of cities and their populations to parent and calls setRedirect
+            else{
                 this.props.onSearchCountry(countryName, 
                     {names: [data['geonames'][0]['name'],data['geonames'][1]['name'],data['geonames'][2]['name']],
                     pops: [data['geonames'][0]['population'],data['geonames'][1]['population'],data['geonames'][2]['population']]})
                 this.setRedirect()
             }
+            // Everything is loaded to the state loading is set to false
             this.setState({
                 loading: false
             })}
@@ -81,9 +90,11 @@ class SearchCountry extends React.Component {
                 <h2>
                     SEARCH BY COUNTRY
                 </h2>
+                {/* Input field for a country */}
                 <div className="center">
                     <input type="text" id="country" placeholder="Enter a country"/>
                 </div>
+                {/* Search button or loading bar if the page is loading */}
                 <div className="center">
                     {!this.state.loading && <button onClick={this.handleClick} className="button-search"></button>}
                     <div className="loader">

@@ -12,7 +12,7 @@ class SearchCity extends React.Component {
             loading: false
         }
     }
-    // Updates the state
+    // Updates the redirect state
     setRedirect = () => {
         this.setState({
             redirect: true
@@ -25,7 +25,8 @@ class SearchCity extends React.Component {
         }
     }
 
-    // Sends the value of the input "city" to parent and calls setRedirect
+    // Checks that text is entered in the input and calls fetchCityData if it is
+    //Sends the value of the input "city" to parent and calls setRedirect
     handleClick(e){
         if(document.getElementById("city").value === ""){
             alert("Please enter a city")
@@ -37,20 +38,26 @@ class SearchCity extends React.Component {
         }
     }
 
-    // Fetches data from geonames.org based on the city entered by the user
+    // Fetches data from geonames.org based on the city entered by the user and sends the value to parent
     fetchCityData(){
         fetch('http://api.geonames.org/searchJSON?name_equals=' + document.getElementById("city").value + 
             '&featureClass=P&maxRows=1&username=weknowit')
         .then(response => response.json())
         .then(data => 
+            // Alerts an error message if one is recieved from the API
             {if(data['status']){
                 alert("Error: "+ data['status']['message'])
-            }else if (data['totalResultsCount']===0){
+            }
+            // Alerts if no result was given from the API-call
+            else if (data['totalResultsCount']===0){
                 alert("That is not an existing city")
-            }else{
+            }
+            // Sends the name of the city and its population to parent
+            else{
                 this.props.onSearchCity(data['geonames'][0]['name'], String(data['geonames'][0]['population']))
                 this.setRedirect()
             }
+            // All data needed is collected, so the state loading is set to false
             this.setState({
                 loading: false
             })}
@@ -64,9 +71,11 @@ class SearchCity extends React.Component {
                 <h2>
                     SEARCH BY CITY
                 </h2>
+                {/* Input field for a city */}
                 <div className="center">
                     <input type="text" id="city" placeholder="Enter a city"/>
                 </div>
+                {/* Search button or loading bar if the page is loading */}
                 <div className="center">
                     {!this.state.loading && <button onClick={this.handleClick} className="button-search"></button>}
                     <div className="loader">
