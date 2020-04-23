@@ -24,8 +24,9 @@ class CitiesPage extends React.Component {
         }
     }
 
+    // Called when a city-button is clicked
     handleClick(cityNbr){
-        this.props.onSearchCity(this.props.threeCities[cityNbr])
+        this.props.onSearchCity(this.props.threeCities.names[cityNbr], String(this.props.threeCities.pops[cityNbr]))
         this.setRedirect()
     }
 
@@ -38,17 +39,17 @@ class CitiesPage extends React.Component {
                 </h2>
                 <div className="center">
                     <button onClick={() => this.handleClick(0)} className="cityButton">
-                        {this.props.threeCities[0]}
+                        {this.props.threeCities.names[0]}
                     </button>
                 </div>
                 <div className="center">
                     <button onClick={() => this.handleClick(1)} className="cityButton">
-                        {this.props.threeCities[1]}
+                        {this.props.threeCities.names[1]}
                     </button>
                 </div>
                 <div className="center">
                     <button onClick={() => this.handleClick(2)} className="cityButton">
-                            {this.props.threeCities[2]}
+                            {this.props.threeCities.names[2]}
                     </button>
                 </div>
             </div>

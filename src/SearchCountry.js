@@ -63,7 +63,9 @@ class SearchCountry extends React.Component {
             {if(data['status']){
                 alert("Error: "+ data['status']['message'])
             }else{
-                this.props.onSearchCountry(countryName, [data['geonames'][0]['name'],data['geonames'][1]['name'],data['geonames'][2]['name']])
+                this.props.onSearchCountry(countryName, 
+                    {names: [data['geonames'][0]['name'],data['geonames'][1]['name'],data['geonames'][2]['name']],
+                    pops: [data['geonames'][0]['population'],data['geonames'][1]['population'],data['geonames'][2]['population']]})
                 this.setRedirect()
             }
             this.setState({
