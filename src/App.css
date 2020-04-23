@@ -75,7 +75,7 @@ input{
   width: 400px;
 }
 
-.cityBox{
+.cityButton{
   margin: auto;
   margin-bottom: 4px;
   text-align: center;
@@ -83,10 +83,7 @@ input{
   border-color: black;
   border-width: 1px;
   width: 400px;
-}
-
-.cityName{
-  text-align: center;
+  height: 80px;
   font-size: 25px;
   font-weight: 500;
   text-transform: uppercase;

@@ -54,7 +54,7 @@ class App extends React.Component {
               <PopulationPage city={this.state.city} pop={this.state.pop}/>
             </Route>
             <Route exact path="/cities">
-              <CitiesPage country={this.state.country} threeCities={this.state.threeCities}/>
+              <CitiesPage onSearchCity={this.searchCity} country={this.state.country} threeCities={this.state.threeCities}/>
             </Route>
           </Switch>
         </Router>
