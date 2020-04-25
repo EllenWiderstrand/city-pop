@@ -12,6 +12,12 @@ class SearchCity extends React.Component {
             loading: false
         }
     }
+    // Updates the loading state
+    setLoading = () => {
+        this.setState({
+            loading: !this.state.loading
+        })
+    }
     // Updates the redirect state
     setRedirect = () => {
         this.setState({
@@ -31,9 +37,7 @@ class SearchCity extends React.Component {
         if(document.getElementById("city").value === ""){
             alert("Please enter a city")
         }else{
-            this.setState({
-                loading: true
-            })
+            this.setLoading()
             this.fetchCityData()
         }
     }
@@ -44,8 +48,10 @@ class SearchCity extends React.Component {
             '&featureClass=P&maxRows=1&username=weknowit')
         .then(response => response.json())
         .then(data => 
+            // All data needed is collected, so the state loading is set to false
+            {this.setLoading()
             // Alerts an error message if one is recieved from the API
-            {if(data['status']){
+            if(data['status']){
                 alert("Error: "+ data['status']['message'])
             }
             // Alerts if no result was given from the API-call
@@ -57,10 +63,7 @@ class SearchCity extends React.Component {
                 this.props.onSearchCity(data['geonames'][0]['name'], String(data['geonames'][0]['population']))
                 this.setRedirect()
             }
-            // All data needed is collected, so the state loading is set to false
-            this.setState({
-                loading: false
-            })}
+            }
         )
     }
 

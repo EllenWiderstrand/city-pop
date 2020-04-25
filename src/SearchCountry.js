@@ -12,6 +12,12 @@ class SearchCountry extends React.Component {
             loading: false
         }
     }
+    // Updates the loading state
+    setLoading = () => {
+        this.setState({
+            loading: !this.state.loading
+        })
+    }
     // Updates the redirect state
     setRedirect = () => {
         this.setState({
@@ -30,9 +36,7 @@ class SearchCountry extends React.Component {
         if(document.getElementById("country").value === ""){
             alert("Please enter a country")
         }else{
-            this.setState({
-                loading: true
-            })
+            this.setLoading()
             this.fetchCountryData()
         }
     }
@@ -46,10 +50,12 @@ class SearchCountry extends React.Component {
             // Alerts an error message if that is recieved from the API-call
             {if(data['status']){
                 alert("Error: "+ data['status']['message'])
+                this.setLoading()
             }
             // Alerts if no country is recieved from the API-call
             else if (data['totalResultsCount']===0){
                 alert("That is not an existing country, please enter a country")
+                this.setLoading()
             }
             // Calls fetchCountryCities with the name of the city otherwise
             else{
@@ -65,8 +71,10 @@ class SearchCountry extends React.Component {
             '&featureCode=PPLA&featureCode=PPLC&orderby=population&maxRows=3&username=weknowit')
         .then(response => response.json())
         .then(data => 
+            // Everything is loaded to the state loading is set to false
+            {this.setLoading()
             // Alerts with error message if one is recieved from the API-call
-            {if(data['status']){
+            if(data['status']){
                 alert("Error: "+ data['status']['message'])
             }
             // Sends the country name as well as lists with names of cities and their populations to parent and calls setRedirect
@@ -75,11 +83,7 @@ class SearchCountry extends React.Component {
                     {names: [data['geonames'][0]['name'],data['geonames'][1]['name'],data['geonames'][2]['name']],
                     pops: [data['geonames'][0]['population'],data['geonames'][1]['population'],data['geonames'][2]['population']]})
                 this.setRedirect()
-            }
-            // Everything is loaded to the state loading is set to false
-            this.setState({
-                loading: false
-            })}
+            }}
         )
     }
 
