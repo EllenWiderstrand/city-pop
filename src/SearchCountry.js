@@ -7,9 +7,11 @@ class SearchCountry extends React.Component {
     constructor(props){
         super(props);
         this.handleClick = this.handleClick.bind(this);
+        this.handleChange = this.handleChange.bind(this);
         this.state = {
             redirect: false,
-            loading: false
+            loading: false,
+            value: ''
         }
     }
     // Updates the loading state
@@ -33,7 +35,7 @@ class SearchCountry extends React.Component {
 
     // Checks that the input field is not empty and calls fetchCountyData if it isn't
     handleClick(e){
-        if(document.getElementById("country").value === ""){
+        if(this.state.value === ""){
             alert("Please enter a country")
         }else{
             this.setLoading()
@@ -43,7 +45,7 @@ class SearchCountry extends React.Component {
 
     // Fetches data from geonames.org based on the country entered by the user
     fetchCountryData(){
-        fetch('http://api.geonames.org/searchJSON?name_equals=' + document.getElementById("country").value + 
+        fetch('http://api.geonames.org/searchJSON?name_equals=' + this.state.value + 
             '&featureCode=PCLI&orderby=population&maxRows=1&username=weknowit')
         .then(response => response.json())
         .then(data => 
@@ -56,6 +58,7 @@ class SearchCountry extends React.Component {
             else if (data['totalResultsCount']===0){
                 alert("That is not an existing country, please enter a country")
                 this.setLoading()
+                this.resetInput()
             }
             // Calls fetchCountryCities with the name of the city otherwise
             else{
@@ -88,6 +91,20 @@ class SearchCountry extends React.Component {
         )
     }
 
+    // Handles change in text input 
+    handleChange(event) {
+        this.setState({
+            value: event.target.value
+        });
+    }
+
+    // Resets the text input
+    resetInput() {
+        this.setState({
+            value: ''
+        });
+    }
+
     render(){
         return (
             <div>
@@ -97,7 +114,7 @@ class SearchCountry extends React.Component {
                 </h2>
                 {/* Input field for a country */}
                 <div className="center">
-                    <input type="text" id="country" placeholder="Enter a country"/>
+                    <input type="text" placeholder="Enter a country" value={this.state.value} onChange={this.handleChange}/>
                 </div>
                 {/* Search button or loading bar if the page is loading */}
                 <div className="center">

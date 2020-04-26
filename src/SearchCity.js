@@ -7,9 +7,11 @@ class SearchCity extends React.Component {
     constructor(props){
         super(props);
         this.handleClick = this.handleClick.bind(this);
+        this.handleChange = this.handleChange.bind(this);
         this.state = {
             redirect: false,
-            loading: false
+            loading: false,
+            value: ''
         }
     }
     // Updates the loading state
@@ -34,7 +36,7 @@ class SearchCity extends React.Component {
     // Checks that text is entered in the input and calls fetchCityData if it is
     //Sends the value of the input "city" to parent and calls setRedirect
     handleClick(e){
-        if(document.getElementById("city").value === ""){
+        if(this.state.value === ""){
             alert("Please enter a city")
         }else{
             this.setLoading()
@@ -44,7 +46,7 @@ class SearchCity extends React.Component {
 
     // Fetches data from geonames.org based on the city entered by the user and sends the value to parent
     fetchCityData(){
-        fetch('http://api.geonames.org/searchJSON?name_equals=' + document.getElementById("city").value + 
+        fetch('http://api.geonames.org/searchJSON?name_equals=' + this.state.value + 
             '&featureClass=P&maxRows=1&username=weknowit')
         .then(response => response.json())
         .then(data => 
@@ -57,6 +59,7 @@ class SearchCity extends React.Component {
             // Alerts if no result was given from the API-call
             else if (data['totalResultsCount']===0){
                 alert("That is not an existing city")
+                this.resetInput()
             }
             // Sends the name of the city and its population to parent
             else{
@@ -65,6 +68,20 @@ class SearchCity extends React.Component {
             }
             }
         )
+    }
+
+    // Handles change in text input 
+    handleChange(event) {
+        this.setState({
+            value: event.target.value
+        });
+    }
+
+    // Resets the text input
+    resetInput() {
+        this.setState({
+            value: ''
+        });
     }
 
     render(){
@@ -76,7 +93,7 @@ class SearchCity extends React.Component {
                 </h2>
                 {/* Input field for a city */}
                 <div className="center">
-                    <input type="text" id="city" placeholder="Enter a city"/>
+                    <input type="text" placeholder="Enter a city" value={this.state.value} onChange={this.handleChange}/>
                 </div>
                 {/* Search button or loading bar if the page is loading */}
                 <div className="center">
