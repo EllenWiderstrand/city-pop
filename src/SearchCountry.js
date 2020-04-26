@@ -77,11 +77,12 @@ class SearchCountry extends React.Component {
             if(data['status']){
                 alert("Error: "+ data['status']['message'])
             }
-            // Sends the country name as well as lists with names of cities and their populations to parent and calls setRedirect
+            // Sends the country name as well as the cities with their name and population to parent and calls setRedirect
             else{
                 this.props.onSearchCountry(countryName, 
-                    {names: [data['geonames'][0]['name'],data['geonames'][1]['name'],data['geonames'][2]['name']],
-                    pops: [data['geonames'][0]['population'],data['geonames'][1]['population'],data['geonames'][2]['population']]})
+                    [{name: data['geonames'][0]['name'], pop: String(data['geonames'][0]['population'])},
+                    {name: data['geonames'][1]['name'], pop: String(data['geonames'][1]['population'])},
+                    {name: data['geonames'][2]['name'], pop: String(data['geonames'][2]['population'])}])
                 this.setRedirect()
             }}
         )

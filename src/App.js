@@ -19,10 +19,7 @@ class App extends React.Component {
       city: "",
       country: "",
       pop: "",
-      threeCities: {
-        names: [],
-        pops: []
-      }
+      threeCities: [{name: "", pop: ""}]
     }
     this.searchCity = this.searchCity.bind(this)
     this.searchCountry = this.searchCountry.bind(this)
