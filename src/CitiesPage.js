@@ -16,10 +16,13 @@ class CitiesPage extends React.Component {
             redirect: true
         })
     }
-    // Redirects to 'population' to show result
+    // Redirects to 'population' to show result or to start page if no country is given
     renderRedirect = () => {
         if (this.state.redirect) {
             return <Redirect to='/population' />
+        }
+        else if(!this.props.country){
+            return <Redirect to='/' />
         }
     }
 
